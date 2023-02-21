@@ -17,6 +17,8 @@
 		631FC4B529A463CC001F9325 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4B429A463CC001F9325 /* LaunchView.swift */; };
 		631FC4B729A46423001F9325 /* LaunchStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4B629A46423001F9325 /* LaunchStateManager.swift */; };
 		631FC4B929A4643E001F9325 /* LaunchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4B829A4643E001F9325 /* LaunchState.swift */; };
+		631FC4BD29A465BE001F9325 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4BC29A465BE001F9325 /* LoginView.swift */; };
+		631FC4BF29A46C01001F9325 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4BE29A46C01001F9325 /* RegisterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		631FC4B429A463CC001F9325 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		631FC4B629A46423001F9325 /* LaunchStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchStateManager.swift; sourceTree = "<group>"; };
 		631FC4B829A4643E001F9325 /* LaunchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchState.swift; sourceTree = "<group>"; };
+		631FC4BC29A465BE001F9325 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		631FC4BE29A46C01001F9325 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +72,7 @@
 				631FC4BA29A464D4001F9325 /* System */,
 				631FC4AF29A460EC001F9325 /* Models */,
 				631FC49F29A460B5001F9325 /* WeatherAppApp.swift */,
-				631FC4A129A460B5001F9325 /* ContentView.swift */,
+				631FC4A329A460B7001F9325 /* Assets.xcassets */,
 				631FC4A529A460B7001F9325 /* Preview Content */,
 			);
 			path = WeatherApp;
@@ -103,8 +107,10 @@
 		631FC4BB29A464E0001F9325 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				631FC4A329A460B7001F9325 /* Assets.xcassets */,
+				631FC4A129A460B5001F9325 /* ContentView.swift */,
 				631FC4B429A463CC001F9325 /* LaunchView.swift */,
+				631FC4BC29A465BE001F9325 /* LoginView.swift */,
+				631FC4BE29A46C01001F9325 /* RegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -180,12 +186,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				631FC4BF29A46C01001F9325 /* RegisterView.swift in Sources */,
 				631FC4B329A461EF001F9325 /* User.swift in Sources */,
 				631FC4B529A463CC001F9325 /* LaunchView.swift in Sources */,
 				631FC4B729A46423001F9325 /* LaunchStateManager.swift in Sources */,
 				631FC4A229A460B5001F9325 /* ContentView.swift in Sources */,
 				631FC4AE29A460D9001F9325 /* Weather.swift in Sources */,
 				631FC4A029A460B5001F9325 /* WeatherAppApp.swift in Sources */,
+				631FC4BD29A465BE001F9325 /* LoginView.swift in Sources */,
 				631FC4B929A4643E001F9325 /* LaunchState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

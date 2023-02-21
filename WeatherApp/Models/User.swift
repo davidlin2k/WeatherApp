@@ -18,8 +18,9 @@ class User {
         self.passwordDigest = passwordDigest
     }
     
-    func findBy(username: String) {
+    static func findBy(username: String) -> User? {
         // Database operations
+        return User(username: "123", passwordDigest: "123")
     }
     
     func authenticate(password: String) -> Bool {
