@@ -8,15 +8,27 @@
 import CoreLocation
 
 class Weather: ObservableObject {
-    var temperature: Double
-    var humidity: Double
-    var windSpeed: Double
-    var description: String
+    private let weatherService = RealWeatherService()
     
-    init(temperature: Double, humidity: Double, windSpeed: Double, description: String) {
+    @Published var temperature: Double
+    @Published var humidity: Int
+    @Published var windSpeed: Double
+    @Published var description: String
+    @Published var icon: String
+    
+    init(temperature: Double, humidity: Int, windSpeed: Double, description: String, icon: String) {
         self.temperature = temperature
         self.humidity = humidity
         self.windSpeed = windSpeed
         self.description = description
+        self.icon = icon
+    }
+    
+    func fetch(location: Location) {
+        guard let coord = location.coord else {
+            return
+        }
+        
+        weatherService.getWeather(weather: self, lat: coord.latitude, lon: coord.longitude)
     }
 }

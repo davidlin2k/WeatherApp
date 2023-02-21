@@ -23,6 +23,6 @@ class User {
     }
     
     func authenticate(password: String) -> Bool {
-        return true
+        return self.passwordDigest == password
     }
 }
