@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct WeatherAppApp: App {
+    
+    @StateObject var launchState = LaunchStateManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                ContentView()
+                
+                if launchState.state != .finished {
+                    LaunchView()
+                }
+            }.environmentObject(launchState)
         }
     }
 }
