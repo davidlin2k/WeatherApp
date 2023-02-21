@@ -17,7 +17,13 @@ struct ContentView: View {
         NavigationStack {
             VStack {
                 HStack {
+                    Image(systemName: "arrow.clockwise")
+                        .onTapGesture {
+                            loadWeather()
+                        }
+                    
                     Spacer()
+                    
                     Image(systemName: "door.left.hand.open")
                         .onTapGesture {
                             logout()
@@ -55,10 +61,6 @@ struct ContentView: View {
                 }
                 
                 Spacer()
-                
-                Button("Refresh") {
-                    loadWeather()
-                }
             }
         }
         .toolbar(.visible, for: .navigationBar)
