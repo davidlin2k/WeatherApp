@@ -26,7 +26,8 @@ struct LaunchView: View {
     
     @ViewBuilder
     private var backgroundColor: some View {
-        Color(uiColor: UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1)).ignoresSafeArea()
+        Color.white
+            .ignoresSafeArea()
     }
     
     private let animationTimer = Timer

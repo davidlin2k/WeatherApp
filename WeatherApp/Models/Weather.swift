@@ -7,16 +7,13 @@
 
 import CoreLocation
 
-class Weather: ObservableObject {
+struct Weather: Identifiable {
+    var id = UUID()
+    
     var temperature: Double
-    var humidity: Double
+    var humidity: Int
     var windSpeed: Double
     var description: String
-    
-    init(temperature: Double, humidity: Double, windSpeed: Double, description: String) {
-        self.temperature = temperature
-        self.humidity = humidity
-        self.windSpeed = windSpeed
-        self.description = description
-    }
+    var icon: String
+    var location: Location?
 }

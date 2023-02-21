@@ -9,18 +9,20 @@ import SwiftUI
 
 @main
 struct WeatherAppApp: App {
-    
+    @StateObject var userService = SQLiteUserService()
     @StateObject var launchState = LaunchStateManager()
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentView()
+                LoginView()
                 
                 if launchState.state != .finished {
                     LaunchView()
                 }
-            }.environmentObject(launchState)
+            }
+            .environmentObject(launchState)
+            .environmentObject(userService)
         }
     }
 }
