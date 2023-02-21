@@ -107,7 +107,7 @@ struct System: Decodable {
 }
 
 protocol WeatherService {
-    
+    func getWeather(lat: Double, lon: Double) -> AnyPublisher<Weather, Error>
 }
 
 class RealWeatherService: WeatherService {

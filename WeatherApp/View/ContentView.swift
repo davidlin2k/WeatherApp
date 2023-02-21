@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import UserNotifications
 
 struct ContentView: View {
     @Environment(\.dismiss) var dismiss
@@ -108,6 +109,43 @@ struct ContentView: View {
         }
         .task {
             loadWeather()
+            
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                if let error = error {
+                    print(error)
+                }
+                
+                scheduleLocalNotification()
+            }
+        }
+    }
+    
+    func scheduleLocalNotification() {
+        let notificationAlreadyScheduled = UserDefaults.standard.bool(forKey: "notificationAlreadyScheduled")
+        guard !notificationAlreadyScheduled else {
+            return
+        }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Weather Time"
+        content.body = "Time to check the weather of the day"
+        content.sound = .default
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = 8
+        dateComponents.minute = 0
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
+        let request = UNNotificationRequest(identifier: "daily_notification", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling local notification: \(error.localizedDescription)")
+            } else {
+                print("Local notification scheduled successfully")
+                UserDefaults.standard.set(true, forKey: "notificationAlreadyScheduled")
+            }
         }
     }
     

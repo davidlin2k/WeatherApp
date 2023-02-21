@@ -9,7 +9,6 @@ import Foundation
 import SQLite
 
 class UserDataStore {
-
     static let DIR_TASK_DB = "UserDB"
     static let STORE_NAME = "users.sqlite3"
 
