@@ -11,7 +11,7 @@ import CoreLocation
 struct ContentView: View {
     @Environment(\.dismiss) var dismiss
     
-    @StateObject private var weather: Weather = Weather(temperature: 0, humidity: 0, windSpeed: 0, description: "", icon: "")
+    @StateObject private var weathers: Weathers = Weathers()
     
     var body: some View {
         NavigationStack {
@@ -30,7 +30,7 @@ struct ContentView: View {
                         }
                 }
                 HStack {
-                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weather.icon)@2x.png")!) { phase in
+                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weathers.currentWeather.icon)@2x.png")!) { phase in
                         if let image = phase.image {
                             image.resizable()
                                 .frame(width: 150, height: 150)
@@ -46,21 +46,49 @@ struct ContentView: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text("\(String(format: "%.1f", weather.temperature - 273.15)) °C")
+                        Text("\(String(format: "%.1f", weathers.currentWeather.temperature - 273.15)) °C")
                             .font(.system(size: 40.0, weight: .heavy))
                         
-                        Text("\(weather.humidity) %")
+                        Text("\(weathers.currentWeather.humidity) %")
                             .font(.system(size: 40.0, weight: .heavy))
                         
-                        Text("\(String(format: "%.1f", weather.windSpeed)) km/h")
+                        Text("\(String(format: "%.1f", weathers.currentWeather.windSpeed)) km/h")
                             .font(.system(size: 40.0, weight: .heavy))
                         
-                        Text("\(weather.description)")
+                        Text("\(weathers.currentWeather.description)")
         
                     }
                 }
                 
+                List {
+                    ForEach(weathers.weathers, id: \.self.location) { weatherResult in
+                        HStack {
+                            AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weathers.currentWeather.icon)@2x.png")!) { phase in
+                                if let image = phase.image {
+                                    image.resizable()
+                                        .frame(width: 50, height: 50)
+                                        .scaledToFill()
+                                } else if phase.error != nil {
+                                    Color.clear
+                                        .frame(width: 50, height: 50)
+                                } else {
+                                    ProgressView()
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            Text("\(String(format: "%.1f", weatherResult.temperature - 273.15)) °C")
+                                .font(.system(size: 40.0, weight: .heavy))
+                        }
+                    }
+                }
+                
                 Spacer()
+                
+                Button("Search") {
+                    weathers.fetchWeathersByAddress(address: "Waterloo")
+                }
             }
         }
         .toolbar(.visible, for: .navigationBar)
@@ -71,10 +99,7 @@ struct ContentView: View {
     }
     
     func loadWeather() {
-        let location = Location()
-        
-        location.coord = location.getLocation()
-        self.weather.fetch(location: location)
+        self.weathers.fetchCurrentWeather()
     }
     
     func logout() {

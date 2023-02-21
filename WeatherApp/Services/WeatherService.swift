@@ -7,6 +7,7 @@
 
 import Alamofire
 import SwiftUI
+import Combine
 
 struct WeatherResponse: Decodable {
     let coordinates: Coordinates
@@ -110,11 +111,8 @@ protocol WeatherService {
 }
 
 class RealWeatherService: WeatherService {
-    func getWeather (weather: Weather, lat: Double, lon: Double) {
+    func getWeather(lat: Double, lon: Double) -> AnyPublisher<Weather, Error> {
         var apiKey = ""
-        
-        print(lat)
-        print(lon)
         
         if let path = Bundle.main.path(forResource: "API Keys", ofType: "plist"),
            let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
@@ -123,21 +121,22 @@ class RealWeatherService: WeatherService {
         
         let endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=\(apiKey)"
 
-        AF.request(endpoint).responseDecodable(of: WeatherResponse.self) { response in
-            switch response.result {
-            case .success(let weatherResponse):
-                weather.temperature = weatherResponse.main.temperature
-                weather.humidity = weatherResponse.main.humidity
-                weather.windSpeed = weatherResponse.wind.speed
-                weather.description = weatherResponse.weather[0].description.capitalized
-                weather.icon = weatherResponse.weather[0].icon
-                
-                print("Received weather data for timezone: \(weatherResponse.timezone)")
-                print("Temperature: \(weatherResponse.main.temperature)K")
+        return Future<Weather, Error> { promise in
+            
+            AF.request(endpoint).responseDecodable(of: WeatherResponse.self) { response in
+                switch response.result {
+                case .success(let weatherResponse):
+                    let weather = Weather(temperature: weatherResponse.main.temperature, humidity: weatherResponse.main.humidity, windSpeed: weatherResponse.wind.speed, description: weatherResponse.weather[0].description.capitalized, icon: weatherResponse.weather[0].icon)
 
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
+                    promise(.success(weather))
+                    
+                    print("Received weather data for timezone: \(weatherResponse.timezone)")
+                    print("Temperature: \(weatherResponse.main.temperature)K")
+
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                }
             }
-        }
+        }.eraseToAnyPublisher()
     }
 }

@@ -25,6 +25,7 @@
 		631FC4CD29A47CE9001F9325 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 631FC4CC29A47CE9001F9325 /* Alamofire */; };
 		631FC4CF29A47CF1001F9325 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4CE29A47CF1001F9325 /* WeatherService.swift */; };
 		631FC4D329A48307001F9325 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4D229A48307001F9325 /* Location.swift */; };
+		631FC4D529A529EB001F9325 /* Weathers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4D429A529EB001F9325 /* Weathers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		631FC4C929A473D4001F9325 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 		631FC4CE29A47CF1001F9325 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		631FC4D229A48307001F9325 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		631FC4D429A529EB001F9325 /* Weathers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weathers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				631FC4AD29A460D9001F9325 /* Weather.swift */,
 				631FC4B229A461EF001F9325 /* User.swift */,
 				631FC4D229A48307001F9325 /* Location.swift */,
+				631FC4D429A529EB001F9325 /* Weathers.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			files = (
 				631FC4BF29A46C01001F9325 /* RegisterView.swift in Sources */,
 				631FC4CA29A473D4001F9325 /* UserDataStore.swift in Sources */,
+				631FC4D529A529EB001F9325 /* Weathers.swift in Sources */,
 				631FC4B329A461EF001F9325 /* User.swift in Sources */,
 				631FC4C229A46E43001F9325 /* UserService.swift in Sources */,
 				631FC4CF29A47CF1001F9325 /* WeatherService.swift in Sources */,
