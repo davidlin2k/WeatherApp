@@ -7,7 +7,9 @@
 
 import CoreLocation
 
-struct Weather {
+struct Weather: Identifiable {
+    var id = UUID()
+    
     var temperature: Double
     var humidity: Int
     var windSpeed: Double

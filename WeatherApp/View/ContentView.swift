@@ -13,6 +13,10 @@ struct ContentView: View {
     
     @StateObject private var weathers: Weathers = Weathers()
     
+    @State private var searchText: String = ""
+    @State private var showDetail: Bool = false
+    @State private var selectedWeather: Weather? = nil
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -29,70 +33,79 @@ struct ContentView: View {
                             logout()
                         }
                 }
-                HStack {
-                    AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weathers.currentWeather.icon)@2x.png")!) { phase in
-                        if let image = phase.image {
-                            image.resizable()
-                                .frame(width: 150, height: 150)
-                                .scaledToFill()
-                        } else if phase.error != nil {
-                            Color.clear
-                                .frame(width: 150, height: 150)
-                        } else {
-                            ProgressView()
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        Text("\(String(format: "%.1f", weathers.currentWeather.temperature - 273.15)) °C")
-                            .font(.system(size: 40.0, weight: .heavy))
-                        
-                        Text("\(weathers.currentWeather.humidity) %")
-                            .font(.system(size: 40.0, weight: .heavy))
-                        
-                        Text("\(String(format: "%.1f", weathers.currentWeather.windSpeed)) km/h")
-                            .font(.system(size: 40.0, weight: .heavy))
-                        
-                        Text("\(weathers.currentWeather.description)")
-        
-                    }
-                }
+                
+                WeatherView(weather: weathers.currentWeather)
                 
                 List {
                     ForEach(weathers.weathers, id: \.self.location) { weatherResult in
                         HStack {
-                            AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weathers.currentWeather.icon)@2x.png")!) { phase in
-                                if let image = phase.image {
-                                    image.resizable()
-                                        .frame(width: 50, height: 50)
-                                        .scaledToFill()
-                                } else if phase.error != nil {
-                                    Color.clear
-                                        .frame(width: 50, height: 50)
-                                } else {
-                                    ProgressView()
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text(weatherResult.location?.city ?? "")
+                                    .font(.system(size: 15.0, weight: .heavy))
+                                
+                                AsyncImage(url: URL(string: "https://openweathermap.org/img/wn/\(weatherResult.icon)@2x.png")!) { phase in
+                                    if let image = phase.image {
+                                        image.resizable()
+                                            .frame(width: 50, height: 50)
+                                            .scaledToFill()
+                                    } else if phase.error != nil {
+                                        Color.clear
+                                            .frame(width: 50, height: 50)
+                                    } else {
+                                        ProgressView()
+                                    }
                                 }
+                                
+                                Spacer()
                             }
                             
                             Spacer()
                             
-                            Text("\(String(format: "%.1f", weatherResult.temperature - 273.15)) °C")
-                                .font(.system(size: 40.0, weight: .heavy))
+                            VStack(alignment: .trailing) {
+                                Text("\(String(format: "%.1f", weatherResult.temperature - 273.15)) °C")
+                                    .font(.system(size: 30.0, weight: .heavy))
+                                
+                                Text("\(weatherResult.description)")
+                                    .font(.system(size: 14.0, weight: .heavy))
+                                Spacer()
+                            }
+                        }
+                        .listRowBackground(Color.gray)
+                        .onTapGesture {
+                            self.selectedWeather = weatherResult
+                            showDetail = true
                         }
                     }
                 }
+                .background(.clear)
+                .scrollContentBackground(.hidden)
                 
                 Spacer()
                 
-                Button("Search") {
-                    weathers.fetchWeathersByAddress(address: "Waterloo")
+                HStack {
+                    TextField("Address", text: $searchText)
+                    Spacer()
+                    Button("Search") {
+                        weathers.fetchWeathersByAddress(address: searchText)
+                    }
                 }
+                
             }
         }
         .toolbar(.visible, for: .navigationBar)
         .padding()
+        .sheet(item: self.$selectedWeather) { weather in
+            VStack {
+                
+                Text(weather.location?.country ?? "")
+                    .font(.system(size: 40.0, weight: .heavy))
+                Text(weather.location?.city ?? "")
+                    .font(.system(size: 40.0, weight: .heavy))
+                
+                WeatherView(weather: weather)
+            }
+            .padding()
+        }
         .task {
             loadWeather()
         }

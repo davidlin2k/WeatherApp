@@ -42,7 +42,9 @@ class Weathers: ObservableObject {
                                 print(error.localizedDescription)
                             }
                         }, receiveValue: { weather in
-                            self.weathers.append(weather)
+                            let weatherWithAddress = Weather(temperature: weather.temperature, humidity: weather.humidity, windSpeed: weather.windSpeed, description: weather.description, icon: weather.icon, location: location)
+                            
+                            self.weathers.append(weatherWithAddress)
                         })
                         .store(in: &self.cancellables)
                 }
