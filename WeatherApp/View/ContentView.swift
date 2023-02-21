@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                HStack {
+                    Spacer()
+                    Image(systemName: "door.left.hand.open")
+                        .onTapGesture {
+                            logout()
+                        }
+                }
+                Spacer()
+            }
         }
+        .toolbar(.visible, for: .navigationBar)
         .padding()
+    }
+    
+    func logout() {
+        User.currentUser = nil
+        dismiss()
     }
 }
 

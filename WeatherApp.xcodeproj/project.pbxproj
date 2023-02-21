@@ -19,6 +19,9 @@
 		631FC4B929A4643E001F9325 /* LaunchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4B829A4643E001F9325 /* LaunchState.swift */; };
 		631FC4BD29A465BE001F9325 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4BC29A465BE001F9325 /* LoginView.swift */; };
 		631FC4BF29A46C01001F9325 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4BE29A46C01001F9325 /* RegisterView.swift */; };
+		631FC4C229A46E43001F9325 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4C129A46E43001F9325 /* UserService.swift */; };
+		631FC4C829A473B9001F9325 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 631FC4C729A473B9001F9325 /* SQLite */; };
+		631FC4CA29A473D4001F9325 /* UserDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631FC4C929A473D4001F9325 /* UserDataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,8 @@
 		631FC4B829A4643E001F9325 /* LaunchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchState.swift; sourceTree = "<group>"; };
 		631FC4BC29A465BE001F9325 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		631FC4BE29A46C01001F9325 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		631FC4C129A46E43001F9325 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		631FC4C929A473D4001F9325 /* UserDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				631FC4C829A473B9001F9325 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +74,7 @@
 		631FC49E29A460B5001F9325 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				631FC4C029A46E0C001F9325 /* Services */,
 				631FC4BB29A464E0001F9325 /* View */,
 				631FC4BA29A464D4001F9325 /* System */,
 				631FC4AF29A460EC001F9325 /* Models */,
@@ -115,6 +122,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		631FC4C029A46E0C001F9325 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				631FC4C129A46E43001F9325 /* UserService.swift */,
+				631FC4C929A473D4001F9325 /* UserDataStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,6 +147,9 @@
 			dependencies = (
 			);
 			name = WeatherApp;
+			packageProductDependencies = (
+				631FC4C729A473B9001F9325 /* SQLite */,
+			);
 			productName = WeatherApp;
 			productReference = 631FC49C29A460B5001F9325 /* WeatherApp.app */;
 			productType = "com.apple.product-type.application";
@@ -159,6 +178,9 @@
 				Base,
 			);
 			mainGroup = 631FC49329A460B5001F9325;
+			packageReferences = (
+				631FC4C629A473B9001F9325 /* XCRemoteSwiftPackageReference "SQLite" */,
+			);
 			productRefGroup = 631FC49D29A460B5001F9325 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -187,7 +209,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				631FC4BF29A46C01001F9325 /* RegisterView.swift in Sources */,
+				631FC4CA29A473D4001F9325 /* UserDataStore.swift in Sources */,
 				631FC4B329A461EF001F9325 /* User.swift in Sources */,
+				631FC4C229A46E43001F9325 /* UserService.swift in Sources */,
 				631FC4B529A463CC001F9325 /* LaunchView.swift in Sources */,
 				631FC4B729A46423001F9325 /* LaunchStateManager.swift in Sources */,
 				631FC4A229A460B5001F9325 /* ContentView.swift in Sources */,
@@ -323,7 +347,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherApp/Preview Content\"";
-				DEVELOPMENT_TEAM = TQ27LL9PXC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -352,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherApp/Preview Content\"";
-				DEVELOPMENT_TEAM = TQ27LL9PXC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -395,6 +419,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		631FC4C629A473B9001F9325 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		631FC4C729A473B9001F9325 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 631FC4C629A473B9001F9325 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 631FC49429A460B5001F9325 /* Project object */;
 }

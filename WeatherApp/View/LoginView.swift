@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject private var launchStateManager: LaunchStateManager
+    
     @State private var username: String = ""
     @State private var password: String = ""
     
@@ -60,18 +62,30 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $showLoggedInView) {
             ContentView()
         }
+        .task {
+            try? await Task.sleep(for: Duration.seconds(1))
+            self.launchStateManager.dismiss()
+        }
     }
     
     func login() {
-        let user = User.findBy(username: username)
+        let user = User.findBy(username: username.lowercased())
         
-        if user == nil {
+        guard let actualUser = user else {
             showAlert = true
             return
         }
         
-        User.currentUser = user
-        
+        if actualUser.authenticate(password: password) {
+            username = ""
+            password = ""
+            
+            showLoggedInView = true
+            User.currentUser = actualUser
+        }
+        else {
+            showAlert = true
+        }
     }
     
     func register() {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @EnvironmentObject private var userService: SQLiteUserService
+    
     @Environment(\.dismiss) var dismiss
     
     @State private var username: String = ""
@@ -47,12 +49,31 @@ struct RegisterView: View {
             }
             .buttonStyle(.bordered)
             .padding()
-            
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text("Register Failed"), dismissButton: .default(Text("OK")))
         }
     }
     
     func register() {
+        if username.count < 6 {
+            showAlert = true
+            return
+        }
         
+        if password.count < 6 {
+            showAlert = true
+            return
+        }
+        
+        let success = userService.createUser(username: username.lowercased(), password: password)
+        
+        if success {
+            dismiss()
+        }
+        else {
+            showAlert = true
+        }
     }
 }
 
